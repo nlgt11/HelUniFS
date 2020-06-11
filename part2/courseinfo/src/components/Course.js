@@ -1,14 +1,19 @@
 import React from 'react';
 
+const Header = ({ courseName }) => <h1>{courseName}</h1>
+
+const Content = ({ parts }) => {
+  return parts.map(part => <Part name={part.name} exercises={part.exercises} key={part.id}/>)
+}
+
+const Part = ({ name, exercises }) => <p> {name} {exercises} </p>
+
+const Total = ({ parts }) => {
+  const total = parts.map(part => part.exercises).reduce((a, b) => a + b);
+  return <p style={{fontWeight: 'bold'}}>Number of exercises {total}</p>
+}
+
 const Course = ({ course }) => {
-    const Header = props => <h1>{props.courseName}</h1>
-    const Content = props => {
-      return props.parts.map(part => <Part name={part.name} exercises={part.exercises} key={part.id}/>)
-    }
-    const Part = props => <p> {props.name} {props.exercises} </p>
-    const total = course.parts.map(part => part.exercises).reduce((a, b) => a + b);
-    const Total = props => <p style={{fontWeight: 'bold'}}>Number of exercises {total}</p>
-  
     return (
       <div>
         <Header courseName={course.name} />
